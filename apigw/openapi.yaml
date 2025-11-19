@@ -1,0 +1,29 @@
+openapi: "3.0.0"
+info:
+  title: mini-cloud-api
+  version: '1.0'
+paths:
+  /api/items:
+    get:
+      x-yc-apigateway-integration:
+        type: http_proxy
+        uri: http://<MICROSERVICE_PUBLIC_OR_INTERNAL_HOST>:8080/items
+      responses:
+        '200':
+          description: OK
+    post:
+      x-yc-apigateway-integration:
+        type: http_proxy
+        uri: http://<MICROSERVICE_PUBLIC_OR_INTERNAL_HOST>:8080/items
+      responses:
+        '201':
+          description: Created
+  /hook:
+    post:
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        # укажи имя и переменные после деплоя
+        function: <FUNCTION_NAME>
+      responses:
+        '200':
+          description: OK
